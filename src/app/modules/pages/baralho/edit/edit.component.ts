@@ -208,10 +208,10 @@ export class EditComponent {
       //Cor Predominante
       this.form.get('cor')?.setValue(typeColors[this.form.value.tipos[0]?.label]  || 'var(--primary)');
     }else{
-      this.form.get('raridades')?.reset();
-      this.form.get('superTipo')?.reset();
-      this.form.get('tipos')?.reset();
-      this.form.get('cor')?.reset();
+      this.form.get('raridades')?.setValue(0);
+      this.form.get('superTipo')?.setValue([]);
+      this.form.get('tipos')?.setValue([]);
+      this.form.get('cor')?.setValue('#A8A878');
     }
   }
 

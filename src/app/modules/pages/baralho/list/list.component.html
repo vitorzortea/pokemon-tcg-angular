@@ -12,7 +12,7 @@
         </ng-container>  
     </main>
 </ng-container>  
-<main *ngIf="baralhos?.length">
+<main *ngIf="baralhos.length">
     <ng-container *ngIf="!loading">
         <ng-container *ngFor="let baralho of baralhos">
             <div class="card">
@@ -95,7 +95,7 @@
         </ng-container>  
     </ng-container>  
 </main>
-<ng-container *ngIf="!baralhos?.length && !loading">
+<ng-container *ngIf="!baralhos.length && !loading">
     <div class="no-data">
         <app-icons icon="noFile"></app-icons>
         <span>Nenhum Baralho foi encontrado.</span>

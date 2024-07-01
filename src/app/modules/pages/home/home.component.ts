@@ -7,7 +7,13 @@ import { PokemonTCGService } from '../../../core/services/pokemontcg.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  cartas!:{image:string, alt:string }[];
+  cartas:{image:string, alt:string }[] = [
+    {image:'https://images.pokemontcg.io/ex8/3.png', alt:'carta inicial'},
+    {image:'https://images.pokemontcg.io/ex8/2.png', alt:'carta inicial'},
+    {image:'https://images.pokemontcg.io/ex8/1.png', alt:'carta inicial'},
+    {image:'https://images.pokemontcg.io/ex8/4.png', alt:'carta inicial'},
+    {image:'https://images.pokemontcg.io/ex8/5.png', alt:'carta inicial'},
+  ];
 
   constructor(
     private cdr: ChangeDetectorRef,

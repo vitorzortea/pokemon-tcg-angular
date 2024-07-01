@@ -15,21 +15,21 @@
         <span>Tipos</span>
         <div>
             <span id="cor-final" [ngStyle]="{'background-color': baralho.cor||'var(--primary)'}">
-                <ng-container *ngIf="baralho.tipos?.length">{{this.baralho.tipos[0].label[0]}}</ng-container>
+                <ng-container *ngIf="baralho.tipos.length">{{this.baralho.tipos[0].label[0]}}</ng-container>
             </span>
             <ng-container *ngFor="let type of baralho.tipos">
                 <span>{{type.label}} <span>{{type.count}}</span></span>
             </ng-container>
         </div>
     </div>
-    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos?.length || 0) > 4) ? '50%' : 'auto'}">
+    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos.length || 0) > 4) ? '50%' : 'auto'}">
         <span>Nível de Raridade </span>
         <div>
             <span [ngStyle]="{'width': (baralho.raridades || 0)+'%'}"></span>
             <div>{{((baralho.raridades || 0).toFixed(1) || 0)}}</div>
         </div>
     </div>
-    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos?.length || 0) > 4) ? '50%' : 'auto'}">
+    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos.length || 0) > 4) ? '50%' : 'auto'}">
         <span>Quantidade de Cartas</span>
         <div>
             <span
