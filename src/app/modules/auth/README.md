@@ -1,0 +1,1 @@
+-Aqui ficaria o modulo de Autenticação totalmente separado de qulquer modulo do Painel em si para não ter importação e risco de vazamento sem autorização

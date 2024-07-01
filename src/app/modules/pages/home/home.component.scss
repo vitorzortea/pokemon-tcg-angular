@@ -1,0 +1,78 @@
+:host{
+    align-items: center;
+    justify-content: flex-end;
+    background-image: url('../../../../assets/img/webp/trainer.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    animation: trainer .8s forwards linear;
+
+    #banner-cards{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        padding-bottom: 100px;
+        &>img{
+            flex: none;
+            width: 125px;
+            max-width: 40%;
+            margin-bottom: -100px;
+            box-shadow: 2px 2px 6px 1px rgba(37, 6, 35, 0.677), -2px -2px 6px 1px rgba(255, 215, 251, 0.5);
+            animation: cardsFloat 6s infinite 0s alternate ease-in-out;
+            &:nth-child(2){ animation-duration: 5.5s; animation-direction: alternate-reverse;}
+            &:nth-child(3){ animation-duration: 7s; }
+            &:nth-child(4){ animation-duration: 6.5s; animation-direction: alternate-reverse;}
+            &:nth-child(5){ animation-duration: 6.2s; }
+        }
+    }
+
+    @keyframes trainer {
+        0%{ background-position: 50% 30px; filter: brightness(2) opacity(0);}
+        100%{ background-position: center; filter: brightness(1) opacity(1);}
+    }
+    @keyframes cardsFloat {
+        0%{ transform: translate(0, -8%);}
+        100%{ transform: translate(0, 8%);}
+    }
+}
+
+@media (max-width: 700px) {
+    :host{
+        top: 0;
+        right: 0;
+        width: 100dvw;
+        height: 100dvh;
+        overflow: hidden;
+        position: absolute !important;
+        z-index: 1 !important;
+        background: transparent;
+
+        #banner-cards{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-evenly;
+            transform: skewX(-12deg) scale(1.1) translateY(-4%);
+
+            &>img{
+                animation: cardsFloatMobile 6s infinite 0s alternate ease-in-out;
+                &:nth-child(2){ animation-duration: 5.5s; animation-direction: alternate-reverse;}
+                &:nth-child(3){ animation-duration: 7s; }
+                &:nth-child(4){ animation-duration: 6.5s; animation-direction: alternate-reverse;}
+                &:nth-child(5){ animation-duration: 6.2s; }
+            }
+
+            @keyframes cardsFloatMobile {
+                0%{ transform: rotate(72deg) scale(1.4, 1.7) translate(0, 40%);}
+                100%{ transform: rotate(72deg) scale(1.4, 1.7) translate(0, 10%);}
+            }
+        }
+    }
+}

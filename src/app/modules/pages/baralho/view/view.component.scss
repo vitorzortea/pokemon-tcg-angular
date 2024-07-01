@@ -1,0 +1,229 @@
+:host{
+    gap: 20px;
+    align-items: stretch;
+    max-height: 100dvh;
+    overflow-y: hidden;
+    backdrop-filter: blur(15px) contrast(0.9);
+
+    
+    &>header{
+        display: flex;
+        flex: none;
+        gap: 10px;
+    }
+
+    #data-deck{   
+        flex: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 10px;
+        min-height: 50px;
+        align-content: stretch;
+        justify-content: space-evenly;
+
+        &>div{
+            flex: 1 0 170px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            
+            &>span{
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: calc(var(--font-size) * .8);
+            }
+            &>div{
+                display: flex;
+                flex-wrap: wrap;
+                background-color: rgba(0,0,0,0.4);
+                box-shadow: inset 3px 3px 6px black, 2px 2px 4px rgba(255,255,255,0.4);
+                padding: 5px;
+                border-radius: var(--radius);
+                gap: 5px;
+                
+                &>span{
+                    --font-size-tag: calc(var(--font-size) * .8);
+                    font-size: var(--font-size-tag);
+                    display: block;
+                    border-radius: var(--radius);
+                    background-color: var(--primary);
+                    padding: 5px;
+                    box-shadow: 3px 3px 6px black, inset 2px 2px 4px rgba(255,255,255,0.4);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: calc(var(--font-size-tag) * .5);
+                    border-radius: calc(var(--radius) * .5);
+
+                    &#cor-final{
+                        padding: 0;
+                        font-size: calc(var(--font-size-tag) * 1.8);
+                        width: calc(var(--font-size-tag) * 2.5);
+                        text-shadow: 2px 3px rgba(0,0,0,0.2);
+                    }
+
+                    &>span{
+                        border-radius: 50%;
+                        transform: scale(1.3);
+                        background-color: var(--dark);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 700;
+                        width: calc(var(--font-size-tag) * 1.5);
+                        height: calc(var(--font-size-tag) * 1.5);
+                        color: var(--highlight);
+                    }
+                }
+            }
+            &>div{
+                flex: 1 0 25px;
+                gap: 8px;
+                position: relative;
+                &>div{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    text-shadow: 0 3px var(--dark);
+                    z-index: 2;
+                }
+            }
+        }
+    }
+    
+    #list-deck{
+        flex: 1 0 0;
+        height: 100%;
+        overflow: auto;
+
+        background-color: rgba(0,0,0,0.2);
+        box-shadow: inset 3px 3px 6px black, 2px 2px 4px rgba(255,255,255,0.4);
+        border-radius: var(--radius);
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+        align-content: start;
+        padding: 0 5px;
+        &>div{ 
+            width: 100%; 
+            position: relative;
+            span{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(175, 88, 215, 0.5);
+                mix-blend-mode: hard-light;
+                backdrop-filter: grayscale(1) blur(2px);
+                filter: blur(3px) opacity(0);
+                z-index: -1;
+                transition: .3s filter, .3s z-index;
+                button{
+                    position: absolute;
+                    top: 50%;
+                    right: 50%;
+                    --font-size: 15px;
+                    --margin-icon: 0;
+                    background-color: var(--primary);
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 1px 1px 4px 1px rgba(16, 0, 23, .83), inset 2px 2px 4px rgb(179 122 206);
+                    cursor: pointer;
+                    
+                    transform: scale(1) translate(50%, -50%);
+                    transition: .3s transform;
+                    &>*{
+                        opacity: 0.8;
+                        transform: scale(1);
+                        transition: .3s transform, .3s opacity;
+                    }
+                    
+                    &:hover{
+                        transform: scale(1.1) translate(50%, -50%);
+                        &>*{
+                            opacity: 0.8;
+                            transform: scale(1.3);
+                        }
+                    }
+                }
+            }
+            &:hover span{
+                z-index: 1;
+                filter: blur(0) opacity(1);
+                transition: .3s filter, .3s z-index;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    :host{
+        height: auto !important;
+        overflow: auto !important;
+        max-height: none !important;
+
+        &>header>h1{ width: 100%; text-align: center; }
+
+        #data-deck{
+            margin: 0;
+            padding: 20px 5px 5px;
+            align-items: stretch;
+            &>div{
+                flex: none;
+                width: calc(50% - 10px);
+            }
+            .data-list{
+                &>div>span{
+                    &#cor-final{width: 100%; }
+                    width: 100%;
+                }
+                #cor-final ~ span { width: calc(50% - 4px); }
+            }
+        }
+        
+        &>#list-deck{
+            flex: none;
+            height: auto;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            padding: 10px;
+
+            &>div>span{
+                top: unset;
+                bottom: 0;
+                height: auto;
+                filter: none;
+                z-index: 2;
+                display: flex;
+                justify-content: flex-end;
+                padding: 10px 5px;
+                mix-blend-mode: unset;
+                background: linear-gradient(0deg, var(--dark) 10%, transparent 90%);
+                backdrop-filter: drop-shadow(2px 4px 6px black);
+
+                button, button:first-child{
+                    --font-size: 20px;
+                    position: static;
+                    padding: 0;
+                    margin: 0;
+                    transform: none;
+                    width: 35px;
+                    height: 35px;
+                }
+            }
+        }
+    }
+}

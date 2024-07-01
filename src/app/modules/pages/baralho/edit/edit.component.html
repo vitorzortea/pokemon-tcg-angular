@@ -1,0 +1,115 @@
+<header *ngIf="this.form.value">
+    <h1>{{title}} Baralho</h1>
+    
+    <div>
+        <div class="data-list">
+            <span>SuperTipos</span>
+            <div>
+                <ng-container *ngFor="let type of this.form.value?.superTipo">
+                    <span>{{type.label}} <span>{{type.count}}</span></span>
+                </ng-container>
+            </div>
+        </div>
+        <div class="data-list">
+            <span>Tipos</span>
+            <div>
+                <span id="cor-final" [ngStyle]="{'background-color': this.form.value?.cor||'var(--primary)'}">
+                    <ng-container *ngIf="this.form?.value?.tipos?.length">{{this.form.value.tipos[0].label[0]}}</ng-container>
+                </span>
+                <ng-container *ngFor="let type of this.form.value?.tipos">
+                    <span>{{type.label}} <span>{{type.count}}</span></span>
+                </ng-container>
+            </div>
+        </div>
+        <div class="graficos">
+            <span>Nível de Raridade </span>
+            <div>
+                <span [ngStyle]="{'width': (this.form.value?.raridades || 0)+'%'}"></span>
+                <div>{{(this.form.value?.raridades?.toFixed(1) || 0)}}</div>
+            </div>
+        </div>
+        <div class="graficos">
+            <span>Quantidade de Cartas</span>
+            <div>
+                <span
+                    [ngStyle]="{'width': form.value.cartas.length*100/60 +'%'}"
+                    [ngClass]="{
+                        '-danger':form.value.cartas.length<24,
+                        '-success':form.value.cartas.length>=24 && form.value.cartas.length<=50,
+                        '-warning':(form.value.cartas.length>50)
+                    }"
+                ></span>
+                <div><span>{{form.value.cartas.length}}</span></div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <input formControlName="name" placeholder="Título do baralho" type="text" name="Título" />
+    </form>
+    <div id="seletor-cartas">
+        <div class="list-select">
+            <header>
+                <span>Todas as Cartas</span>
+                <div class="action-deck">
+                    <button (click)="loadCardsAPI()"><app-icons icon="searchUpdate"></app-icons></button>
+                    <span class="busca">
+                        <input 
+                            [(ngModel)]="busca"
+                            (keydown.enter)="loadCardsAPI()"
+                            (ngModelChange)="changeinput()"
+                            type="search"
+                            placeholder="Buscar Carta"
+                        >
+                        <button 
+                            (click)="loadCardsAPI()"
+                            
+                        ><app-icons icon="leftLeft"></app-icons></button>
+                    </span>
+                </div>
+            </header>
+            <div class="list-deck">
+                <ng-container *ngFor="let carta of listSelect">
+                    <div class="carta-single" [ngClass]="{'-max': (this.cardMax[carta.name] || 0 )==3}">
+                        <img [src]="carta.images.small" [alt]="carta.name" />
+                        <span>
+                            <button (click)="verCarta(carta.id)"><app-icons icon="view"></app-icons></button>
+                            <button (click)="addCard(carta)"><app-icons icon="plusCircle"></app-icons></button>
+                        </span>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!listSelect.length && loadCard">
+                    <ng-container *ngFor="let item of [].constructor(4)">
+                        <span class="skeleton" [ngStyle]="{'width': '100%', 'height':'150px', 'border-radius':'10px', 'opacity':0.5 }"></span>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="!listSelect.length && !loadCard">Sem cartas</ng-container>
+                
+            </div>
+        </div>
+        <div  class="all-nothing">
+            <button (click)="removeall()"><app-icons icon="leftLeft"></app-icons></button>
+            <button (click)="addAll()"><app-icons icon="rightRight"></app-icons></button>
+        </div>
+        <div class="list-select">
+            <header>
+                <span>Cartas Selecionadas</span>
+            </header>
+            <div class="list-deck">
+                <ng-container *ngFor="let carta of form.value.cartas; let i=index">
+                    <div class="carta-single">
+                        <img [src]="carta.images.small" [alt]="carta.name" />
+                        <span>
+                            <button (click)="verCarta(carta.id)"><app-icons icon="view"></app-icons></button>
+                            <button (click)="removerCard(i)"><app-icons icon="minusCircle"></app-icons></button>
+                        </span>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <button type="submit" (click)="submit()"><app-icons [setClass]="['icon-save']" icon="save"></app-icons> Salvar</button>
+</main>
+
+<ng-template #viewCard></ng-template>

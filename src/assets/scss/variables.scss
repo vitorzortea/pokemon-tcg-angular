@@ -1,0 +1,23 @@
+$root-vars: (
+  'primary':    #703C88,
+  'highlight':    #BD2EFF,
+  'nadir':    #433C61,
+
+  'dark':       #1C233E,
+  'light':      #FFFFFF,
+  'color':      var(--light),
+
+  'success':    #198754,
+  'danger':     #dc3545,
+  'warning':    #fd7e14,
+  
+  'font-size':    .9rem,
+  'letter-spacing': 0.08em,
+  'radius':    .5em,
+
+  'margin-icon': calc(var(--font-size)* .3) calc(var(--font-size)* .5) calc(var(--font-size)* -.15),
+) !default;
+
+:root{
+    @each $name, $value in $root-vars { --#{$name}: #{$value}; }
+}
