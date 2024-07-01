@@ -102,7 +102,7 @@
         <button routerLink="/baralho/new">CRIAR UM NOVO BARALHO</button>
     </div>
 </ng-container>
-<div id="paginator"  *ngIf="lastPage > 2" [ngClass]="{'disabled': lastPage==1}">
+<div id="paginator">
     
     <ng-container *ngIf="loading">
         <span class="skeleton" [ngStyle]="{'width': '80px', 'height':'calc(var(--font-size) * 1.2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
