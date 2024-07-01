@@ -1,7 +1,7 @@
-<div id="banner-cards">
-    <img src="https://images.pokemontcg.io/bw10/51_hires.png" alt="Nome Carta" />
-    <img src="https://images.pokemontcg.io/bw10/60_hires.png" alt="Nome Carta" />
-    <img src="https://images.pokemontcg.io/bw10/92_hires.png" alt="Nome Carta" />
-    <img src="https://images.pokemontcg.io/bw10/22_hires.png" alt="Nome Carta" />
-    <img src="https://images.pokemontcg.io/bw10/66_hires.png" alt="Nome Carta" />
+<div id="banner-cards" *ngIf="cartas">
+    <img [src]="cartas[0].image" [alt]="cartas[0].alt" />
+    <img [src]="cartas[1].image" [alt]="cartas[1].alt" />
+    <img [src]="cartas[2].image" [alt]="cartas[2].alt" />
+    <img [src]="cartas[3].image" [alt]="cartas[3].alt" />
+    <img [src]="cartas[4].image" [alt]="cartas[4].alt" />
 </div>

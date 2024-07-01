@@ -25,7 +25,7 @@
             <span>Nível de Raridade </span>
             <div>
                 <span [ngStyle]="{'width': (this.form.value?.raridades || 0)+'%'}"></span>
-                <div>{{(this.form.value?.raridades?.toFixed(1) || 0)}}</div>
+                <div>{{((this.form.value?.raridades || 0).toFixed(1) || 0)}}</div>
             </div>
         </div>
         <div class="graficos">

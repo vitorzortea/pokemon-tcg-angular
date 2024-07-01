@@ -1,5 +1,5 @@
 <header>
-    <h1>{{baralho.name}}</h1>
+    <h1>{{baralho.name}}</h1> <button [routerLink]="'/baralho/edit/'+baralho.id" ><app-icons icon="edit" [setClass]="['icon-menu']"></app-icons></button>
 </header>
 
 <div id="data-deck">
@@ -22,14 +22,14 @@
             </ng-container>
         </div>
     </div>
-    <div class="graficos">
+    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos?.length || 0) > 4) ? '50%' : 'auto'}">
         <span>Nível de Raridade </span>
         <div>
             <span [ngStyle]="{'width': (baralho.raridades || 0)+'%'}"></span>
-            <div>{{(baralho.raridades?.toFixed(1) || 0)}}</div>
+            <div>{{((baralho.raridades || 0).toFixed(1) || 0)}}</div>
         </div>
     </div>
-    <div class="graficos">
+    <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos?.length || 0) > 4) ? '50%' : 'auto'}">
         <span>Quantidade de Cartas</span>
         <div>
             <span

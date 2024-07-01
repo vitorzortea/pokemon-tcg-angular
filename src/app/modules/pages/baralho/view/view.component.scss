@@ -23,10 +23,15 @@
         justify-content: space-evenly;
 
         &>div{
-            flex: 1 0 170px;
+            flex: 1 0 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
+            min-width: fit-content;
+            
+            &.graficos{
+                min-width: 33.33333%;
+            }
 
             
             &>span{
@@ -176,7 +181,17 @@
         overflow: auto !important;
         max-height: none !important;
 
-        &>header>h1{ width: 100%; text-align: center; }
+        &>header{
+            h1{ flex: 1 0 0; }
+
+            &>button {
+                --font-size: 20px;
+                width: 40px;
+                height: 40px;
+                background: #433c61;
+                border-radius: 50%;
+            }
+        }
 
         #data-deck{
             margin: 0;
@@ -185,6 +200,7 @@
             &>div{
                 flex: none;
                 width: calc(50% - 10px);
+                min-width: 25%;
             }
             .data-list{
                 &>div>span{

@@ -5,12 +5,14 @@
         <app-icons icon="baralhoPlus" [setClass]="['icon-menu']"></app-icons><span>Novo Baralho</span>
     </a>
 </header>
-<main *ngIf="baralhos?.length">
-    <ng-container *ngIf="loading">
-        <ng-container *ngFor="let baralho of [].constructor(pag.limit || 1)">
-            <span class="skeleton" [ngStyle]="{'width': '100%', 'height':'110px', 'border-radius':'10px', 'opacity':0.5 }"></span>
+<ng-container *ngIf="loading">
+    <main>
+        <ng-container *ngFor="let baralho of [].constructor((pag.limit || 9)/4)">
+            <span class="skeleton" [ngStyle]="{'width': '100%', 'height':'250px', 'border-radius':'10px', 'opacity':0.5 }"></span>
         </ng-container>  
-    </ng-container>  
+    </main>
+</ng-container>  
+<main *ngIf="baralhos?.length">
     <ng-container *ngIf="!loading">
         <ng-container *ngFor="let baralho of baralhos">
             <div class="card">
@@ -39,7 +41,7 @@
                                     'background-color': 'color-mix(in srgb, transparent 70%, '+baralho.cor+')',
                                 }"
                                 >
-                                    <span class="porcent-number">{{baralho.raridades.toFixed(0)}}<i>%</i></span>
+                                    <span class="porcent-number">{{(baralho.raridades || 0).toFixed(0)}}<i>%</i></span>
                                 </span>
                             </div>
                         </div>
