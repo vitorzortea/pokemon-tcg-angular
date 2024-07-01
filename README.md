@@ -1,5 +1,6 @@
 # PokemonTcgAngular
 Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
+O layout foi criao no [Figma e poderá ter acesso aqui](https://www.figma.com/design/6GwuYx02u4f2QeSX7K5TMc/Pokemon?m=auto&t=eGatp0PwbMP7aHM1-6)
 
 ## Descrição
 Usando a API [Pokemon TCG](https://docs.pokemontcg.io/#api_v1cards_list) e o [mockapi.io](https://mockapi.io/) para implementar uma aplicação que consulte as cartas de Pokemon e monte baralhos para o usuário.
