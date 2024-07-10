@@ -79,12 +79,6 @@ export class ListComponent implements OnInit{
   }
 
   public mudarPaginacao(direcao:number):void{
-    console.log(this.paginacao,
-      this.paginacao.page+direcao >= 1 && this.paginacao.page+direcao <= this.ultimaPagina,
-      this.paginacao.page+direcao >= 1,
-      this.paginacao.page+direcao <= this.ultimaPagina,
-      this.ultimaPagina
-    );
     this.paginacao.page = (this.paginacao.page+direcao >= 1 && this.paginacao.page+direcao <= this.ultimaPagina)
       ? this.paginacao.page+direcao
       : this.paginacao.page;
