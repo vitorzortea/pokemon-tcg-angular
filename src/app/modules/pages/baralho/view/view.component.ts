@@ -1,9 +1,12 @@
-import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { MockapiService } from '../../../../core/services/mockapi.service';
 import { ActivatedRoute } from '@angular/router';
-import { baralho } from '../../../../core/model/baralho';
+import { Baralho } from '../../../../core/model/baralho';
 import Swal from 'sweetalert2';
 import { CardComponent } from '../../../../shared/card/card.component';
+import { Carta } from '../../../../core/model/carta';
+import { TypeColors } from '../../../../core/enums/types-color';
+import { Tipos } from '../../../../core/model/tipagem';
 
 @Component({
   selector: 'app-view',
@@ -11,7 +14,8 @@ import { CardComponent } from '../../../../shared/card/card.component';
   styleUrl: './view.component.scss'
 })
 export class ViewComponent {
-  baralho!:baralho;
+  public baralho!:Baralho;
+  public cores = TypeColors;
   
   @ViewChild('viewCard',{read:ViewContainerRef }) viewContainerRef!: ViewContainerRef ;
 
@@ -25,10 +29,11 @@ export class ViewComponent {
     })
   }
 
-  verCarta(id:string){
+  verCarta(carta:Carta){
     this.viewContainerRef.clear();
     const componentRef = this.viewContainerRef.createComponent(CardComponent);
-    componentRef.instance.id = id;
+    componentRef.instance.src = carta.images.large;
+    componentRef.instance.alt = carta.name;
     const componentElement = componentRef.location.nativeElement;
 
     Swal.fire({
@@ -37,6 +42,10 @@ export class ViewComponent {
       showCloseButton: true,
       willClose: () => { componentRef.destroy(); }
     });
+  }
+
+  public primeiraCor(baralho:Baralho):Tipos{
+    return (baralho?.tipos.length) ? baralho.tipos[0].label : 'Metal';
   }
 
 }

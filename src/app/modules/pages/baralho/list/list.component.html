@@ -5,30 +5,32 @@
         <app-icons icon="baralhoPlus" [setClass]="['icon-menu']"></app-icons><span>Novo Baralho</span>
     </a>
 </header>
-<ng-container *ngIf="loading">
+<!-- Carragando -->
+<ng-container *ngIf="carregandoPagina">
     <main>
-        <ng-container *ngFor="let baralho of [].constructor((pag.limit || 9)/4)">
+        <ng-container *ngFor="let baralho of [].constructor((paginacao.limit || 9)/4)">
             <span class="skeleton" [ngStyle]="{'width': '100%', 'height':'250px', 'border-radius':'10px', 'opacity':0.5 }"></span>
         </ng-container>  
     </main>
-</ng-container>  
-<main *ngIf="baralhos.length">
-    <ng-container *ngIf="!loading">
-        <ng-container *ngFor="let baralho of baralhos">
+</ng-container>
+
+<!-- Listagem -->
+<main *ngIf="listagem.length">
+        <ng-container *ngFor="let baralho of listagem">
             <div class="card">
-                <div class="card-icon" [ngStyle]="{'background-color': baralho.cor}" >
-                    <span [ngStyle]="{'background-color': 'color-mix(in srgb, white 80%, '+baralho.cor+')'}"></span>
+                <div class="card-icon" [ngStyle]="{'background-color':  cores[primeiraCor(baralho)]}" >
+                    <span [ngStyle]="{'background-color':  misturarCor('white', 60, primeiraCor(baralho))}"></span>
                 </div>
                 <div class="main-card">
-                    <span>📆Criado: <strong>{{baralho.criatedAt | date}}</strong></span>
-                    <h2>{{baralho.name}}</h2>
+                    <span>📆Criado: <strong>{{baralho.dataCriacao | date}}</strong></span>
+                    <h2>{{baralho.nome}}</h2>
                     <div class="detail">
                         <div class="main-data">
-                            <div class="tag-card">Cartas 
+                            <div class="tag-card">Cartas
                                 <span
                                 [ngStyle]="{
-                                    'color': 'color-mix(in srgb, white 60%, '+baralho.cor+')',
-                                    'background-color': 'color-mix(in srgb, transparent 70%, '+baralho.cor+')',
+                                    'color':  misturarCor('white', 60, primeiraCor(baralho)),
+                                    'background-color': misturarCor('transparent', 70, primeiraCor(baralho)),
                                 }"
                                 >
                                     <span>{{baralho.cartas.length}}</span>
@@ -37,28 +39,28 @@
                             <div class="tag-card">Raridade
                                 <span
                                 [ngStyle]="{
-                                    'color': 'color-mix(in srgb, white 60%, '+baralho.cor+')',
-                                    'background-color': 'color-mix(in srgb, transparent 70%, '+baralho.cor+')',
+                                    'color': misturarCor('white', 60, primeiraCor(baralho)),
+                                    'background-color': misturarCor('transparent', 70, primeiraCor(baralho)),
                                 }"
                                 >
-                                    <span class="porcent-number">{{(baralho.raridades || 0).toFixed(0)}}<i>%</i></span>
+                                    <span class="porcent-number">{{(baralho.raridade || 0).toFixed(0)}}<i>%</i></span>
                                 </span>
                             </div>
                         </div>
                         
-                        <div *ngIf="baralho.tipos.length">
+                        <div *ngIf="baralho.superTipos.length">
                             <span class="title-detail" 
                             [ngStyle]="{
-                                'color': 'color-mix(in srgb, white 60%, '+baralho.cor+')',
+                                'color': misturarCor('white', 60, primeiraCor(baralho)),
                             }">
                                 Supertipos:
                             </span>
-                            <ng-container *ngFor="let type of baralho.superTipo">
+                            <ng-container *ngFor="let type of baralho.superTipos">
                                 <div class="tag-card">{{type.label}}
                                     <span
                                     [ngStyle]="{
-                                        'color': 'color-mix(in srgb, white 60%, '+baralho.cor+')',
-                                        'background-color': 'color-mix(in srgb, transparent 70%, '+baralho.cor+')',
+                                        'color': misturarCor('white', 60, primeiraCor(baralho)),
+                                        'background-color': misturarCor('transparent', 70, primeiraCor(baralho)),
                                     }"
                                     ><span>{{type.count}}</span></span>
                                 </div>
@@ -68,7 +70,7 @@
                         <div *ngIf="baralho.tipos.length">
                             <span class="title-detail" 
                             [ngStyle]="{
-                                'color': 'color-mix(in srgb, white 60%, '+baralho.cor+')',
+                                'color': misturarCor('white', 60, primeiraCor(baralho)),
                             }">
                                 Tipos:
                             </span>
@@ -77,8 +79,8 @@
                                     {{type.label}}
                                     <span
                                     [ngStyle]="{
-                                        'color': 'color-mix(in srgb, white 60%, '+typeColors[type.label]+')',
-                                        'background-color': 'color-mix(in srgb, transparent 70%, '+typeColors[type.label]+')',
+                                        'color': misturarCor('white', 60, type.label),
+                                        'background-color': misturarCor('transparent', 70, type.label),
                                     }"
                                     ><span>{{type.count}}</span></span>
                                 </div>
@@ -89,40 +91,62 @@
                 <div class="card-acton">
                     <button [routerLink]="'/baralho/edit/'+baralho.id" ><app-icons icon="edit" [setClass]="['icon-menu']"></app-icons></button>
                     <button [routerLink]="'/baralho/'+baralho.id" ><app-icons icon="view" [setClass]="['icon-menu']"></app-icons></button>
-                    <button (click)="deletarBaralho(baralho.id)" ><app-icons icon="delete" [setClass]="['icon-menu']"></app-icons></button>
+                    <button (click)="avisoDeletar(baralho.id)" ><app-icons icon="delete" [setClass]="['icon-menu']"></app-icons></button>
                 </div>
             </div>
-        </ng-container>  
-    </ng-container>  
+        </ng-container>
 </main>
-<ng-container *ngIf="!baralhos.length && !loading">
+
+<!-- Sem Itens-->
+<ng-container *ngIf="!listagem.length && !carregandoPagina">
     <div class="no-data">
         <app-icons icon="noFile"></app-icons>
         <span>Nenhum Baralho foi encontrado.</span>
         <button routerLink="/baralho/new">CRIAR UM NOVO BARALHO</button>
     </div>
 </ng-container>
-<div id="paginator">
-    
-    <ng-container *ngIf="loading">
-        <span class="skeleton" [ngStyle]="{'width': '80px', 'height':'calc(var(--font-size) * 1.2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
-        <span class="skeleton" [ngStyle]="{'width': '20px', 'height':'calc(var(--font-size) * 2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
-        <span class="skeleton" [ngStyle]="{'width': '20px', 'height':'calc(var(--font-size) * 2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
-        <span class="skeleton" [ngStyle]="{'width': '53px', 'height':'calc(var(--font-size) * 2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
-        <span class="skeleton" [ngStyle]="{'width': '20px', 'height':'calc(var(--font-size) * 2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
-        <span class="skeleton" [ngStyle]="{'width': '20px', 'height':'calc(var(--font-size) * 2)', 'border-radius':'5px', 'opacity':0.5 }"></span>
+
+<!-- Paginação -->
+<div id="paginator">    
+    <ng-container *ngIf="carregandoPagina">
+        <ng-container *ngFor="let skeleton of skeletonNavegacao">
+            <span class="skeleton" [ngStyle]=skeleton></span>
+        </ng-container>
     </ng-container>
-    <ng-container *ngIf="!loading">
-        <span>{{ (pag.limit*pag.page)-pag.limit+1 }} - {{ (pag.limit*pag.page)-(pag.limit-baralhos.length) }} of {{total}}</span>
-        <button [disabled]="pag.page==1" (click)="goPage(1)"><app-icons icon="leftLeft" [setClass]="['icon-menu']"></app-icons></button>
-        <button [disabled]="pag.page==1" (click)="navPage(-1)"><app-icons icon="left" [setClass]="['icon-menu']"></app-icons></button>
-        <select [(ngModel)]="pag.limit" (change)="sizelist(pag.limit)">
+    <ng-container *ngIf="!carregandoPagina">
+        <span>{{ primeiroItem }} - {{ ultimoItem }} de {{ total }}</span>
+        <button 
+            [disabled]="paginacao.page==1"
+            (click)="mudarPaginaDireta(1)"
+        >
+            <app-icons icon="leftLeft" [setClass]="['icon-menu']"></app-icons>
+        </button>
+        <button
+            [disabled]="paginacao.page==1"
+            (click)="mudarPaginacao(-1)"
+        >
+            <app-icons icon="left" [setClass]="['icon-menu']"></app-icons>
+        </button>
+        <select
+            [(ngModel)]="paginacao.limit"
+            (change)="mudarTamanhoLista(paginacao.limit)"
+        >
             <option value="12">12</option>
             <option value="30">30</option>
             <option value="60">60</option>
             <option value="120">120</option>
         </select>
-        <button [disabled]="pag.page==lastPage" (click)="navPage(1)"><app-icons icon="right" [setClass]="['icon-menu']"></app-icons></button>
-        <button [disabled]="pag.page==lastPage" (click)="goPage(lastPage)"><app-icons icon="rightRight" [setClass]="['icon-menu']"></app-icons></button>
+        <button
+            [disabled]="paginacao.page==ultimaPagina"
+            (click)="mudarPaginacao(1)"
+        >
+            <app-icons icon="right" [setClass]="['icon-menu']"></app-icons>
+        </button>
+        <button
+            [disabled]="paginacao.page==ultimaPagina"
+            (click)="mudarPaginaDireta(ultimaPagina)"
+        >
+            <app-icons icon="rightRight" [setClass]="['icon-menu']"></app-icons>
+        </button>
     </ng-container>
 </div>

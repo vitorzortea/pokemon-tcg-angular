@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CrudService } from './crud.service';
-import { card, cards } from '../model/card';
+import { Carta, CartaAPI } from '../model/carta';
 import { Observable } from 'rxjs';
+import { Listagem } from '../model/listagem';
+import { ObjetoDinamico } from '../model/tipagem';
 
 @Injectable({
   providedIn: 'root'
@@ -9,19 +11,17 @@ import { Observable } from 'rxjs';
 export class PokemonTCGService {
   private api = 'https://api.pokemontcg.io/v2/';
   
-  constructor( private CRUD:CrudService<cards,{data:card}> ) {
-    this.api = this.api.endsWith('/') ? this.api : `${this.api}/`;
-  }
+  constructor(
+    private CRUD:CrudService<any>,
+  ) {}
 
-  get(table:string, params?:{[key:string]:any}):Observable<cards>{ return this.CRUD.get(this.api,table,params); }
+  public get(table:string, params?:ObjetoDinamico):Observable<Listagem<Carta>>{
+    return this.CRUD.get(this.api,table,params)
+  }
   
-  getID(table:string, id:string, params?:{[key:string]:any}):Observable<{data:card}>{ return this.CRUD.getID(this.api,table,id,params); }
-  
-  //post(table:string, body:any){ return this.CRUD.post(this.api,table,body); }
-  //
-  //put(table:string, id:string, body:any){ return this.CRUD.put(this.api,table,id,body); }
-  //
-  //delete(table:string, id:string){ return this.CRUD.delete(this.api,table,id); }
+  public getID(table:string, id:string, params?:ObjetoDinamico):Observable<CartaAPI>{
+    return this.CRUD.getID(this.api,table,id,params) as Observable<CartaAPI>;
+  }
 
 
 }

@@ -1,34 +1,17 @@
 <nav>
     <a routerLink="/" title="Pokémon TCG" ><img src="assets/img/svg/logo;.svg" alt="Pokémon TCG" /></a>
+    
     <ul id="menu-pincipal">
-        <li>
-            <a routerLink="/baralho/list" routerLinkActive="active">
-                <app-icons icon="baralho" [setClass]="['icon-menu']"></app-icons><span>Meus Baralho</span>
+        <li *ngFor="let item of itemMenu">
+            <a [routerLink]="item.router" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <app-icons [icon]="item.icon" [setClass]="['icon-menu']"></app-icons><span>{{item.label}}</span>
             </a>
         </li>
-        <li>
-            <a routerLink="/baralho/new" routerLinkActive="active">
-                <app-icons icon="baralhoPlus" [setClass]="['icon-menu']"></app-icons><span>Novo Baralho</span>
-            </a>
-        </li>
-        <!--
-        - EU ADICIONARIA ESSA PÁGINA MESMO QUE NÃO FOI PEDIDO, MAS NÃO DEU TEMPO (Domingo - 00:12)
-            <li>
-                <a routerLink="/s" routerLinkActive="active">
-                    <app-icons icon="carta" [setClass]="['icon-menu']"></app-icons><span>Buscar Carta</span>
-                </a>
-            </li>
-        -->
     </ul>
+    
     <ul id="social">
-        <li>
-            <a href="https://github.com/vitorzortea" target="_blank"><app-icons icon="github" [setClass]="['icon-menu']"></app-icons></a>
-        </li>
-        <li>
-            <a href="https://www.linkedin.com/in/vitorzortea/" target="_blank"><app-icons icon="linkdin" [setClass]="['icon-menu']"></app-icons></a>
-        </li>
-        <li>
-            <a href="https://www.youtube.com/@vitorzortea" target="_blank"><app-icons icon="youtube" [setClass]="['icon-menu']"></app-icons></a>
+        <li *ngFor="let item of socialMenu">
+            <a [href]="item.router" target="_blank" [title]="item.label"><app-icons [icon]="item.icon" [setClass]="['icon-menu']"></app-icons></a>
         </li>
     </ul>
 </nav>

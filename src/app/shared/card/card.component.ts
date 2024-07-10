@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, Component, Input, input } from '@angular/core';
-import { card } from '../../core/model/card';
+import { AfterViewChecked, Component, Input } from '@angular/core';
 import { PokemonTCGService } from '../../core/services/pokemontcg.service';
+import { Carta } from '../../core/model/carta';
 
 @Component({
   selector: 'app-card',
@@ -12,19 +12,8 @@ import { PokemonTCGService } from '../../core/services/pokemontcg.service';
 })
 export class CardComponent implements AfterViewChecked {
   init=false;
-  carta!:card;
-  @Input() id:string = '';
-
-  constructor(
-    private crud:PokemonTCGService,
-  ){
-  }
-
-  ngAfterViewChecked(): void {
-    if(!this.init){
-      this.crud.getID('cards', this.id).subscribe({ next:(e)=>{ this.carta = e.data } })
-    }
-    this.init = true;
-  }
-
+  @Input() src!:string;
+  @Input() alt!:string;
+  constructor(){}
+  ngAfterViewChecked(): void { this.init = true; }
 }

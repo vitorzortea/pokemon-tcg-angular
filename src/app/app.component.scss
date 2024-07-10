@@ -2,6 +2,7 @@
     display: flex;
     height: 100dvh;
     width: 100dvw;
+    overflow: hidden;
 
     background: 
     linear-gradient(180deg, rgba(28, 35, 62, 0) 24.28%, #1C233E 97.26%),
@@ -10,48 +11,6 @@
     background-blend-mode: multiply, luminosity, normal;
 
     align-items: stretch;
-    position: relative;
-
-    &>*{
-        position: relative;
-        z-index: 2;
-    }
-
-    &.no-home{
-
-        background:
-        linear-gradient(180deg, rgba(28, 35, 62, 0) 20%, #1C233E 100%),
-        url(../assets/img/webp/bg-hero.webp) 50% / cover no-repeat,
-        radial-gradient(268% 150% at -25% 50%, #ff95c4 0%, #5f357f 30%, #d44095 50%, #f40b72 100%);
-        background-blend-mode: multiply, luminosity, normal;
-    }
-
-
-    &::ng-deep>router-outlet+*{
-        display: flex;
-        flex-direction: column;
-        padding: 2%;
-        flex: 1 0 0;
-        position: relative;
-        z-index: 2;
-    }
 }
 
-@media (max-width: 700px) {
-    :host{
-        background: 
-        linear-gradient(90deg, #1C233E 30%, transparent 31%),
-        linear-gradient(180deg, rgba(28, 35, 62, 0) 24.28%, #1C233E 97.26%),
-        url(../assets/img/webp/bg-hero.webp) 50% / cover no-repeat,
-        radial-gradient(268% 150% at -25% 50%, #ff95c4 0%, #5A63AB 25%, #d44095 50%, #f40b72 100%);
-        background-blend-mode: normal, multiply, luminosity, normal;
-        display: block;
-        width: 100dvw;
-        height: 100dvh;
-        overflow: hidden;
-        &.no-home{
-            display: flex;
-            flex-direction: column;
-        }
-    }
-}
+@media (max-width: 700px) { :host{ flex-direction: column; position: relative; } }

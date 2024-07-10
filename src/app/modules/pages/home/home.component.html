@@ -1,7 +1,5 @@
 <div id="banner-cards">
-    <img [src]="cartas[0].image" [alt]="cartas[0].alt" />
-    <img [src]="cartas[1].image" [alt]="cartas[1].alt" />
-    <img [src]="cartas[2].image" [alt]="cartas[2].alt" />
-    <img [src]="cartas[3].image" [alt]="cartas[3].alt" />
-    <img [src]="cartas[4].image" [alt]="cartas[4].alt" />
+    <ng-container *ngFor="let carta of cartas">
+        <img [ngClass]="{'load': carta.view}" [src]="carta.image" [alt]="carta.alt"/>
+    </ng-container>
 </div>

@@ -1,18 +1,12 @@
-import { card } from "./card"
+import { Carta } from "./carta"
+import { SuperTipos, Tag, Tipos } from "./tipagem"
 
-export type baralho = {
+export type Baralho = {
     id: string
-    name: string
-    criatedAt: string
-    cor: string
-    cartas: card[],
-    tipos: {label:string, count:number}[],
-    superTipo: {label:string, count:number}[],
-    raridades: number,
-}
-
-
-export type baralhos = {
-    items: [],
-    count: number
+    nome:string,
+    dataCriacao:Date,
+    cartas:Carta[],
+    tipos:Tag<Tipos>[],
+    superTipos: Tag<SuperTipos>[],
+    raridade:number,
 }

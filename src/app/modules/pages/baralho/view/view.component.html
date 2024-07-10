@@ -1,12 +1,13 @@
+<ng-container *ngIf="baralho">
 <header>
-    <h1>{{baralho.name}}</h1> <button [routerLink]="'/baralho/edit/'+baralho.id" ><app-icons icon="edit" [setClass]="['icon-menu']"></app-icons></button>
+    <h1>{{baralho.nome}}</h1> <button [routerLink]="'/baralho/edit/'+baralho.id" ><app-icons icon="edit" [setClass]="['icon-menu']"></app-icons></button>
 </header>
 
 <div id="data-deck">
     <div class="data-list">
         <span>SuperTipos</span>
         <div>
-            <ng-container *ngFor="let type of baralho.superTipo">
+            <ng-container *ngFor="let type of baralho.superTipos">
                 <span>{{type.label}} <span>{{type.count}}</span></span>
             </ng-container>
         </div>
@@ -14,7 +15,7 @@
     <div class="data-list">
         <span>Tipos</span>
         <div>
-            <span id="cor-final" [ngStyle]="{'background-color': baralho.cor||'var(--primary)'}">
+            <span id="cor-final" [ngStyle]="{'background-color':  cores[primeiraCor(baralho)]}">
                 <ng-container *ngIf="baralho.tipos.length">{{this.baralho.tipos[0].label[0]}}</ng-container>
             </span>
             <ng-container *ngFor="let type of baralho.tipos">
@@ -25,8 +26,8 @@
     <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos.length || 0) > 4) ? '50%' : 'auto'}">
         <span>Nível de Raridade </span>
         <div>
-            <span [ngStyle]="{'width': (baralho.raridades || 0)+'%'}"></span>
-            <div>{{((baralho.raridades || 0).toFixed(1) || 0)}}</div>
+            <span [ngStyle]="{'width': (baralho.raridade || 0)+'%'}"></span>
+            <div>{{((baralho.raridade || 0).toFixed(1) || 0)}}</div>
         </div>
     </div>
     <div class="graficos" [ngStyle]="{'min-width': ((baralho.tipos.length || 0) > 4) ? '50%' : 'auto'}">
@@ -49,10 +50,11 @@
         <div class="carta-single">
             <img [src]="carta.images.small" [alt]="carta.name" />
             <span>
-                <button (click)="verCarta(carta.id)"><app-icons icon="view"></app-icons></button>
+                <button (click)="verCarta(carta)"><app-icons icon="view"></app-icons></button>
             </span>
         </div>
     </ng-container>
 </div>
 
 <ng-template #viewCard></ng-template>
+</ng-container>

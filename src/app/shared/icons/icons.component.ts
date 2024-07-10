@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ICONES } from '../../core/model/tipagem';
 
 @Component({
   selector: 'app-icons',
@@ -34,7 +35,7 @@ export class IconsComponent implements AfterViewInit {
   @ViewChild('baralhoPlus', { static: true }) baralhoPlus: TemplateRef<any> | null = null;
   @ViewChild('carta', { static: true }) carta: TemplateRef<any> | null = null;
   @ViewChild('github', { static: true }) github: TemplateRef<any> | null = null;
-  @ViewChild('linkdin', { static: true }) linkdin: TemplateRef<any> | null = null;
+  @ViewChild('linkedin', { static: true }) linkedin: TemplateRef<any> | null = null;
   @ViewChild('youtube', { static: true }) youtube: TemplateRef<any> | null = null;
   @ViewChild('whats', { static: true }) whats: TemplateRef<any> | null = null;
   @ViewChild('edit', { static: true }) edit: TemplateRef<any> | null = null;
@@ -63,5 +64,3 @@ export class IconsComponent implements AfterViewInit {
   getTemplate():TemplateRef<any> { return this[(this.icon as string)] || this.default; }
 
 }
-
-type ICONES = 'baralho' | 'baralhoPlus' | 'carta' | 'github' | 'linkdin' | 'youtube' | 'whats' | 'edit' | 'shared' | 'delete' | 'leftLeft' | 'left' | 'right' | 'rightRight' | 'plusCircle' | 'minusCircle' | 'view' | 'save' | 'searchUpdate' | 'noFile' | 'default';

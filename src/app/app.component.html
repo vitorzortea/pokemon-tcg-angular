@@ -1,4 +1,2 @@
-<ng-container *ngIf="rotaAtual!==''">
-    <app-side-menu [ngClass]="{'home': rotaAtual==='/' || rotaAtual==='/home'}"></app-side-menu>
-    <router-outlet></router-outlet>
-</ng-container>
+<router-outlet></router-outlet>
+<app-side-menu></app-side-menu>
