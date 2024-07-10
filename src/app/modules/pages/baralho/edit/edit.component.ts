@@ -82,7 +82,6 @@ export class EditComponent implements OnInit {
           superTipos:[baralho.superTipos],
           raridade:[baralho.raridade]
         });
-        console.log(this.form.value);
         
         this.contabilizarBaralho();
         this.carregandoPagina=false;
@@ -103,7 +102,6 @@ export class EditComponent implements OnInit {
     const raridades:number[] = cartas.map(e=>this.raridades[e.rarity||'Common']) || [];
     const raridade:number = raridades.reduce((a,b)=>a+b, 0)*100/(cartas.length || 1)
     
-    console.log('raridade:', raridade);
     this.form.get('raridade')?.setValue(raridade);
     
     //SuperTipos superTipo
@@ -164,7 +162,6 @@ export class EditComponent implements OnInit {
   changeinput(){ if(!this.busca){ this.getCartas(); } }
 
   addCarta(Carta:Carta){
-    console.log({Carta, contagemCarta:this.contagemCarta});
     if((this.contagemCarta[Carta.name] | 0) < 4 && this.form.value.cartas.length<60){
       //A CARTA INTEIRA IRIA PESAR O REST, SALVAR SÓ O ID TERÁ MUITOS GETS NO EDIT.//
       //RESOLVI APAGAR AQUI O QUE EU NÃO VOU USARM MAS EM UM SISTEMA REAL NÃO SERIA ASSIM...//
